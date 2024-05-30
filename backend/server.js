@@ -146,6 +146,5 @@ const mongoose = require('mongoose');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 mongoose.connect('mongodb+srv://Suraj:123@cluster0.uuxn554.mongodb.net/E-billing')
-    // mongoose.connect('mongodb://localhost:27017/E-billing')
     .then(() => console.log('MongoDB connected successfully'))
     .catch(err => console.error('MongoDB connection error:', err));

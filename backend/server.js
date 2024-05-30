@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const User = require('./models/User');
 const Admin = require('./models/Admin');
+const Customer = require('./models/Customer');
 
 const app = express();
 
@@ -79,27 +80,50 @@ app.put('/api/users/:id', async (req, res) => {
 });
 
 
+// Registration api
+app.post('/api/register', async (req, res) => {
+    const { name, email, password } = req.body;
+
+    if (!email) {
+        return res.status(400).send({ message: 'Email is required' });
+    }
+    try {
+        const newCustomer = new Customer({ name, email, password });
+        await newCustomer.save();
+        res.status(201).json({ success: true, message: 'Registration successful', customer: newCustomer });
+    } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).send({ message: 'Duplicate email', error: error.message });
+        }
+        console.error('Error during registration:', error);
+        res.status(500).send({ message: 'Failed to register', error: error.message });
+    }
+});
+
 
 // login api
 app.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const customer = await Customer.findOne({ email });
 
-        if (!user) {
+        if (!customer) {
             return res.status(404).send({ success: false, userExists: false, message: 'User not found' });
         }
-        if (password !== user.password) {
+        // Simulate token generation (in production, use JWT or similar)
+        const token = `fake-token-for-${email}`;
+
+        if (password !== customer.password) {
             return res.status(401).send({ success: false, userExists: true, message: 'Invalid credentials' });
         }
-        // User exists and password matches
+
+        // Customer exists and password matches
         res.send({ success: true, userExists: true, message: 'Logged in successfully' });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).send({ message: 'Server error' });
     }
 });
-
 // Payment API
 app.get('/api/get-remaining-amount/:billNo/:email', async (req, res) => {
     try {
@@ -145,6 +169,8 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 const mongoose = require('mongoose');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
-mongoose.connect('mongodb+srv://Suraj:123@cluster0.uuxn554.mongodb.net/E-billing')
+
+mongoose.connect('mongodb://localhost:27017/E-billing')
+    // mongoose.connect('mongodb+srv://Suraj:123@cluster0.uuxn554.mongodb.net/E-billing')
     .then(() => console.log('MongoDB connected successfully'))
     .catch(err => console.error('MongoDB connection error:', err));

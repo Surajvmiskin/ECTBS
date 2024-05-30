@@ -1,20 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Make sure to install react-router-dom if not already installed
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthContext'; // Ensure the path is correct based on your project structure
+
 const Navbar = () => {
+    const { isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/'); // Redirect to home or any other page
+    };
+
     return (
         <nav className="navbar navbar-expand-lg fixed-top bg-body clean-navbar navbar-light">
             <div className="container">
                 <Link className="navbar-brand logo" to="/">ECTBS</Link>
-                <button data-bs-toggle="collapse" className="navbar-toggler" data-bs-target="#navcol-1">
-                    <span className="visually-hidden">Toggle navigation</span>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navcol-1">
+                <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item"><Link className="nav-link active" to="/">Home</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/faq">FAQ</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/contact-us">CONTACT US</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+                        <li className="nav-item">
+                            <Link className="nav-link active" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/faq">FAQ</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/contact-us">Contact Us</Link>
+                        </li>
+                        {isAuthenticated ? (
+                            <li className="nav-item">
+                                <button className="btn btn-link nav-link" onClick={handleLogout}>Log Out</button>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
+                                <button className="btn btn-link nav-link" onClick={() => navigate('/login')}>Log In</button>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

@@ -1,12 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Updated import
 const MainContent = () => {
+    const navigate = useNavigate(); // Updated to useNavigate
+
+    const handleBillTrackClick = () => {
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+            navigate('/login'); // Redirect to login if not logged in
+        } else {
+            navigate('/payment-gateway'); // Redirect to payment gateway if logged in
+        }
+    };
+
     return (
         <main className="page landing-page">
             <section className="clean-block clean-hero" style={{ backgroundImage: "url('/img/tech/Electricity.jpg')", color: "rgba(9, 162, 255, 0.85)" }}>
                 <div className="text">
-                    <h2>Electricity Consumption Tracking & Billing System Projectss</h2>
-                    <button className="btn btn-outline-light btn-lg info" type="button"><Link className="nav-link active" to="/payment-gateway">Bill Track</Link></button>
+                    <h2>Electricity Consumption Tracking & Billing System Projects</h2>
+                    <button className="btn btn-outline-light btn-lg info" type="button" onClick={handleBillTrackClick}>
+                        Bill Track
+                    </button>
                 </div>
             </section>
             <section className="clean-block clean-info dark">

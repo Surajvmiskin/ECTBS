@@ -12,7 +12,7 @@ const RegistrationPage = () => {
             return;
         }
 
-        fetch('/register', {
+        fetch('http://localhost:3001/api/register', { // Update the URL to include the full address
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

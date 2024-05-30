@@ -10,26 +10,31 @@ import PaymentGateway from './components/payment-gateway';
 import AdminLogin from './components/AdminLogin';
 import Admin from './components/Admin';
 import ContactUsPage from './components/Contact-us';
+import { AuthProvider } from './components/AuthContext';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<MainContent />} exact />
-          <Route path="/faq" element={<FaqPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path='/payment-gateway' element={<PaymentGateway />} />
-          <Route path="/Admin-login" element={<AdminLogin />} />
-          <Route path="/Admin" element={<Admin />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/contact-us" element={<ContactUsPage />} />
-        </Routes>
-        <Footer />
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Navbar />
+
+          <Routes>
+            <Route path="/" element={<MainContent />} exact />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path='/payment-gateway' element={<PaymentGateway />} />
+            <Route path="/Admin-login" element={<AdminLogin />} />
+            <Route path="/Admin" element={<Admin />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/contact-us" element={<ContactUsPage />} />
+          </Routes>
+          <Footer />
+        </div>
+      </AuthProvider>
     </Router>
   );
+
 }
 
 export default App;

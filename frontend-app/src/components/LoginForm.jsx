@@ -11,20 +11,23 @@ const LoginForm = () => {
         try {
             const response = await axios.post('http://localhost:3001/api/login', { email, password });
             if (response.data.success) {
-                // User exists and password matches
+                localStorage.setItem('userToken', response.data.token);//storing the token in local
+                // Customer exists and password matches
                 window.location.href = '/payment-gateway';
             } else {
                 if (!response.data.userExists) {
-                    // User does not exist, redirect to registration
+                    // Customer does not exist, show alert and redirect to registration
+                    alert('User not valid. Redirecting to registration page.');
                     window.location.href = '/registration';
                 } else {
-                    // User exists but wrong password, show error message
+                    // Customer exists but wrong password, show error message
                     setErrorMessage('Invalid credentials. Please try again.');
                 }
             }
         } catch (error) {
             if (error.response && error.response.status === 404) {
-                // User not found, redirect to registration
+                // Customer not found, show alert and redirect to registration
+                alert('User not valid. Redirecting to registration page.');
                 window.location.href = '/registration';
             } else if (error.response && error.response.status === 401) {
                 // Wrong password, show error message

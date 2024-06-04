@@ -124,6 +124,8 @@ app.post('/api/login', async (req, res) => {
         res.status(500).send({ message: 'Server error' });
     }
 });
+
+
 // Payment API
 app.get('/api/get-remaining-amount/:billNo/:email', async (req, res) => {
     try {

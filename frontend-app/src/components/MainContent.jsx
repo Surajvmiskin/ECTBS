@@ -16,7 +16,7 @@ const MainContent = () => {
         <main className="page landing-page">
             <section className="clean-block clean-hero" style={{ backgroundImage: "url('/img/tech/Electricity.jpg')", color: "rgba(9, 162, 255, 0.85)" }}>
                 <div className="text">
-                    <h2>Electricity Consumption Tracking & Billing System Projects</h2>
+                    <h2>Electricity Consumption Tracking & Billing System Project</h2>
                     <button className="btn btn-outline-light btn-lg info" type="button" onClick={handleBillTrackClick}>
                         Bill Track
                     </button>

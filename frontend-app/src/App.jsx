@@ -18,7 +18,6 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Navbar />
-
           <Routes>
             <Route path="/" element={<MainContent />} exact />
             <Route path="/faq" element={<FaqPage />} />

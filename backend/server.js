@@ -6,6 +6,7 @@ const Admin = require('./models/Admin');
 const Customer = require('./models/Customer');
 
 const app = express();
+require('dotenv').config()
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -172,7 +173,11 @@ const mongoose = require('mongoose');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 
-mongoose.connect('mongodb://localhost:27017/E-billing')
-    // mongoose.connect('mongodb+srv://Suraj:123@cluster0.uuxn554.mongodb.net/E-billing')
-    .then(() => console.log('MongoDB connected successfully'))
+
+
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000 // Timeout after 5000ms instead of the default 30000ms
+}).then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));

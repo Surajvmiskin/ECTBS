@@ -8,7 +8,14 @@ const Customer = require('./models/Customer');
 const app = express();
 // require('dotenv').config()
 
-app.use(cors());
+app.use(cors(
+
+    {
+        origin: ["https://ectbs-8if3.vercel.app/"],
+        methods: ['POST', 'GET', 'PUT'],
+        credentials: true
+    }
+));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 

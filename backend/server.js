@@ -6,7 +6,7 @@ const Admin = require('./models/Admin');
 const Customer = require('./models/Customer');
 
 const app = express();
-require('dotenv').config()
+// require('dotenv').config()
 
 app.use(cors());
 app.use(bodyParser.json());

@@ -175,9 +175,6 @@ console.log('Connecting to MongoDB at:', 'mongodb://localhost:27017/E-billing');
 
 
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 10000 // Timeout after 5000ms instead of the default 30000ms
-}).then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect('mongodb+srv://suraj:suraj@cluster0.uuxn554.mongodb.net/E-billing')
+    // mongoose.connect('mongodb+srv://Suraj:123@cluster0.uuxn554.mongodb.net/E-billing')
+    .then(() => console.log('MongoDB connected successfully'))

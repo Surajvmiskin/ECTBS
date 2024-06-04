@@ -9,7 +9,7 @@ const Admin = () => {
 
     const handleSubmit = (index) => {
         const user = users[index];
-        fetch(`http://localhost:3001/api/users/${user._id}`, { // Ensure the URL is correct
+        fetch(`https://ectbs.vercel.app/api/users/${user._id}`, { // Ensure the URL is correct
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const Admin = () => {
     });
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/users')
+        fetch('https://ectbs.vercel.app/api/users')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -81,7 +81,7 @@ const Admin = () => {
             alert('Email is required');
             return;
         }
-        fetch('http://localhost:3001/api/users', {
+        fetch('https://ectbs.vercel.app/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
